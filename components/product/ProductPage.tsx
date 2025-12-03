@@ -43,20 +43,20 @@ const ProductPage = ({ product, relatedProducts }: ProductPageProps) => {
   return (
     <div className="bg-white">
       {/* Breadcrumb */}
-      <div className="px-6 lg:px-20 py-4">
+      <div className="px-4 md:px-6 lg:px-20 py-3 md:py-4">
         <div className="max-w-[1200px] mx-auto">
-          <nav className="flex items-center gap-2 text-sm text-gray-500">
+          <nav className="flex items-center gap-2 text-xs md:text-sm text-gray-500">
             <Link href="/" className="hover:text-[#00473c]">{product.category}</Link>
             <span>&gt;</span>
-            <span className="text-gray-900">{product.name}</span>
+            <span className="text-gray-900 truncate">{product.name}</span>
           </nav>
         </div>
       </div>
 
       {/* Main Product Section */}
-      <section className="px-6 lg:px-20 pb-12">
+      <section className="px-4 md:px-6 lg:px-20 pb-8 md:pb-12">
         <div className="max-w-[1200px] mx-auto">
-          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
+          <div className="flex flex-col lg:flex-row gap-6 md:gap-8 lg:gap-12">
             {/* Left - Gallery with Thumbnails on Left */}
             <div className="w-full lg:w-1/2">
               <ProductGallery images={product.images} productName={product.name} />
@@ -65,62 +65,62 @@ const ProductPage = ({ product, relatedProducts }: ProductPageProps) => {
             {/* Right - Product Info */}
             <div className="w-full lg:w-1/2">
               {/* Product Title */}
-              <h1 className="text-2xl lg:text-3xl font-medium text-[#3a3a3a] mb-2">
+              <h1 className="text-xl md:text-2xl lg:text-3xl font-medium text-[#3a3a3a] mb-2">
                 {product.name}
               </h1>
 
               {/* Description */}
-              <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+              <p className="text-xs md:text-sm text-gray-600 mb-3 line-clamp-2">
                 {product.description}
               </p>
 
               {/* Rating */}
-              <div className="flex items-center gap-1 mb-6">
+              <div className="flex items-center gap-1 mb-4 md:mb-6">
                 <StarRating rating={product.rating} />
               </div>
 
               {/* Discount & Shipping Info Box */}
-              <div className="flex items-center border border-gray-200 rounded-lg mb-6 overflow-hidden">
+              <div className="flex flex-col md:flex-row items-stretch md:items-center border border-gray-200 rounded-lg mb-4 md:mb-6 overflow-hidden">
                 {/* Discount Badge */}
-                <div className="flex items-center gap-3 px-4 py-3 bg-gray-50/50">
-                  <div className="w-12 h-12 bg-[#00473c] rounded-lg flex items-center justify-center">
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="flex items-center gap-2 md:gap-3 px-3 md:px-4 py-2 md:py-3 bg-gray-50/50">
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-[#00473c] rounded-lg flex items-center justify-center shrink-0">
+                    <svg className="w-5 h-5 md:w-6 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A2 2 0 013 12V7a4 4 0 014-4z" />
                     </svg>
                   </div>
                   <div>
-                    <span className="text-sm font-semibold text-[#3a3a3a]">{discountPercentage}% off on First Order</span>
-                    <div className="text-xs text-gray-500">Code:FIRSTPURCHASE</div>
+                    <span className="text-xs md:text-sm font-semibold text-[#3a3a3a]">{discountPercentage}% off on First Order</span>
+                    <div className="text-[10px] md:text-xs text-gray-500">Code:FIRSTPURCHASE</div>
                   </div>
                 </div>
                 {/* Shipping Date */}
-                <div className="flex items-center gap-3 px-4 py-3 ml-auto border-l border-gray-200">
-                  <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
-                    <svg className="w-6 h-6 text-[#00473c]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="flex items-center gap-2 md:gap-3 px-3 md:px-4 py-2 md:py-3 md:ml-auto border-t md:border-t-0 md:border-l border-gray-200">
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-gray-100 rounded-lg flex items-center justify-center shrink-0">
+                    <svg className="w-5 h-5 md:w-6 md:h-6 text-[#00473c]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
                     </svg>
                   </div>
                   <div>
-                    <div className="text-xs text-gray-500">Estimated Shipping Date</div>
-                    <div className="text-sm font-semibold text-[#00473c]">{product.estimatedDelivery}</div>
+                    <div className="text-[10px] md:text-xs text-gray-500">Estimated Shipping Date</div>
+                    <div className="text-xs md:text-sm font-semibold text-[#00473c]">{product.estimatedDelivery}</div>
                   </div>
                 </div>
               </div>
 
               {/* Size & Price Section */}
-              <div className="border border-gray-200 rounded-lg p-5 mb-6">
+              <div className="border border-gray-200 rounded-lg p-4 md:p-5 mb-4 md:mb-6">
                 <div className="flex flex-col lg:flex-row gap-6">
                   {/* Size Selection - Left Side */}
                   <div className="flex-1">
                     {/* Width */}
-                    <div className="flex items-center gap-4 mb-4">
-                      <div className="flex items-center gap-2 w-24">
+                    <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-4 mb-4">
+                      <div className="flex items-center gap-2 w-full md:w-24">
                         <span className="text-sm font-medium text-[#3a3a3a]">Width</span>
-                        <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-4 h-4 md:w-5 md:h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
                         </svg>
                       </div>
-                      <div className="flex gap-3 flex-1">
+                      <div className="flex gap-2 md:gap-3 flex-1">
                         <div className="flex-1">
                           <div className="border border-gray-300 rounded-lg px-3 py-2">
                             <div className="text-[10px] text-gray-400 uppercase tracking-wide">Inches</div>
@@ -168,14 +168,14 @@ const ProductPage = ({ product, relatedProducts }: ProductPageProps) => {
                     </div>
 
                     {/* Height */}
-                    <div className="flex items-center gap-4">
-                      <div className="flex items-center gap-2 w-24">
+                    <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-4">
+                      <div className="flex items-center gap-2 w-full md:w-24">
                         <span className="text-sm font-medium text-[#3a3a3a]">Height</span>
-                        <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-4 h-4 md:w-5 md:h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
                         </svg>
                       </div>
-                      <div className="flex gap-3 flex-1">
+                      <div className="flex gap-2 md:gap-3 flex-1">
                         <div className="flex-1">
                           <div className="border border-gray-300 rounded-lg px-3 py-2">
                             <div className="text-[10px] text-gray-400 uppercase tracking-wide">Inches</div>
@@ -224,17 +224,17 @@ const ProductPage = ({ product, relatedProducts }: ProductPageProps) => {
                   </div>
 
                   {/* Price & CTA - Right Side */}
-                  <div className="lg:border-l lg:border-gray-200 lg:pl-6">
-                    <div className="text-sm text-[#0F9D49] mb-1">{discountPercentage}% off on First Order</div>
-                    <div className="flex items-baseline gap-2 mb-4">
-                      <span className="text-2xl font-bold text-[#3a3a3a]">$ {product.price}</span>
+                  <div className="lg:border-l lg:border-gray-200 lg:pl-6 border-t lg:border-t-0 border-gray-200 pt-4 lg:pt-0 mt-4 lg:mt-0">
+                    <div className="text-xs md:text-sm text-[#0F9D49] mb-1">{discountPercentage}% off on First Order</div>
+                    <div className="flex items-baseline gap-2 mb-3 md:mb-4">
+                      <span className="text-xl md:text-2xl font-bold text-[#3a3a3a]">$ {product.price}</span>
                       {product.originalPrice > product.price && (
-                        <span className="text-sm text-gray-400 line-through">€ {product.originalPrice}</span>
+                        <span className="text-xs md:text-sm text-gray-400 line-through">€ {product.originalPrice}</span>
                       )}
                     </div>
                     <button
                       onClick={() => setShowCustomization(true)}
-                      className="w-full bg-[#00473c] text-white py-3 px-6 rounded-lg font-medium hover:bg-[#003830] transition-colors"
+                      className="w-full bg-[#00473c] text-white py-2.5 md:py-3 px-4 md:px-6 rounded-lg text-sm md:text-base font-medium hover:bg-[#003830] transition-colors"
                     >
                       Customize and Buy
                     </button>
@@ -242,8 +242,8 @@ const ProductPage = ({ product, relatedProducts }: ProductPageProps) => {
                 </div>
 
                 {/* How to Measure Link */}
-                <div className="mt-4 pt-4 border-t border-gray-200">
-                  <button className="flex items-center gap-2 text-sm text-[#00473c] hover:underline">
+                <div className="mt-3 md:mt-4 pt-3 md:pt-4 border-t border-gray-200">
+                  <button className="flex items-center gap-2 text-xs md:text-sm text-[#00473c] hover:underline">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                     </svg>
@@ -257,9 +257,9 @@ const ProductPage = ({ product, relatedProducts }: ProductPageProps) => {
       </section>
 
       {/* Product Details Section - Full Width */}
-      <section className="px-6 lg:px-20 py-6 bg-white">
+      <section className="px-4 md:px-6 lg:px-20 py-6 bg-white">
         <div className="max-w-[1200px] mx-auto">
-          <div className="bg-white rounded-lg border border-gray-200 px-4 py-6">
+          <div className="bg-white rounded-lg border border-gray-200 px-3 md:px-4 py-4 md:py-6">
             <div className="flex flex-col gap-8">
               {/* Product Details */}
               <div className="flex flex-col gap-1.5">
@@ -298,7 +298,7 @@ const ProductPage = ({ product, relatedProducts }: ProductPageProps) => {
       </section>
 
       {/* Reviews Section */}
-      <section className="px-6 lg:px-20 py-12 bg-white border-t border-gray-100">
+      <section className="px-4 md:px-6 lg:px-20 py-8 md:py-12 bg-white border-t border-gray-100">
         <div className="max-w-[1200px] mx-auto">
           <ProductReviews
             reviews={product.reviews}
@@ -310,7 +310,7 @@ const ProductPage = ({ product, relatedProducts }: ProductPageProps) => {
 
       {/* Related Products */}
       {relatedProducts.length > 0 && (
-        <section className="px-6 lg:px-20 py-12 bg-white">
+        <section className="px-4 md:px-6 lg:px-20 py-8 md:py-12 bg-white">
           <div className="max-w-[1200px] mx-auto">
             <RelatedProducts products={relatedProducts} />
           </div>

@@ -19,17 +19,17 @@ const ProductReviews = ({ reviews, averageRating, totalReviews }: ProductReviews
   const maxCount = Math.max(...ratingCounts.map(r => r.count), 1);
 
   return (
-    <div className="flex flex-col gap-7">
+    <div className="flex flex-col gap-5 md:gap-7">
       {/* Reviews Overview */}
-      <div className="bg-white rounded-lg px-4 py-5 border border-gray-200">
-        <div className="flex items-start justify-between">
+      <div className="bg-white rounded-lg px-3 md:px-4 py-4 md:py-5 border border-gray-200">
+        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 md:gap-0">
           {/* Left side - Rating summary and bars */}
-          <div className="flex items-end gap-8 lg:gap-16">
+          <div className="flex flex-col sm:flex-row sm:items-end gap-4 sm:gap-6 lg:gap-16">
             {/* Rating Number & Stars */}
-            <div className="flex flex-col gap-4">
-              <h3 className="text-xl font-medium text-[#0d0c22]">Reviews</h3>
+            <div className="flex flex-col gap-3 md:gap-4">
+              <h3 className="text-lg md:text-xl font-medium text-[#0d0c22]">Reviews</h3>
               <div className="flex flex-col gap-1">
-                <span className="text-[32px] font-bold text-black leading-[34px]">{averageRating.toFixed(1)}</span>
+                <span className="text-2xl md:text-[32px] font-bold text-black leading-tight md:leading-[34px]">{averageRating.toFixed(1)}</span>
                 <StarRating rating={Math.round(averageRating)} size="md" filledColor="text-[#e7b66b]" />
                 <span className="text-xs font-medium text-[#858585]">({totalReviews} Reviews)</span>
               </div>
@@ -48,7 +48,7 @@ const ProductReviews = ({ reviews, averageRating, totalReviews }: ProductReviews
               <div className="flex flex-col gap-4 relative">
                 {ratingCounts.map(({ rating, count }) => (
                   <div key={rating} className="relative">
-                    <div className="w-[200px] lg:w-[351px] h-1.5 bg-[#f2f6fb] rounded-lg" />
+                    <div className="w-[120px] sm:w-[180px] lg:w-[351px] h-1.5 bg-[#f2f6fb] rounded-lg" />
                     <div
                       className="absolute top-0 left-0 h-1.5 bg-[#e7b66b] rounded-lg"
                       style={{ width: `${(count / maxCount) * 100}%` }}
@@ -72,7 +72,7 @@ const ProductReviews = ({ reviews, averageRating, totalReviews }: ProductReviews
           </div>
 
           {/* Review Button */}
-          <button className="bg-black text-white text-sm font-medium px-3 py-3 hover:bg-gray-800 transition-colors">
+          <button className="w-full sm:w-auto bg-black text-white text-sm font-medium px-3 py-2.5 md:py-3 hover:bg-gray-800 transition-colors">
             Review this Product
           </button>
         </div>

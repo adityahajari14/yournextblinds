@@ -32,54 +32,100 @@ const ProductGallery = ({ images, productName }: ProductGalleryProps) => {
 
   return (
     <>
-      <div className="flex gap-4 h-fit">
-        {/* Vertical Thumbnail Strip */}
+      <div className="flex flex-col md:flex-row gap-3 md:gap-4 h-fit">
+        {/* Vertical Thumbnail Strip - Hidden on mobile, horizontal on tablet */}
         {displayImages.length > 1 && (
-          <div className="hidden md:flex flex-col gap-2 w-20 shrink-0">
-            {visibleThumbnails.map((image, index) => (
-              <button
-                key={index}
-                onClick={() => setSelectedImage(index)}
-                className={`relative w-20 h-20 shrink-0 overflow-hidden border-2 transition-all ${
-                  selectedImage === index
-                    ? 'border-[#00473c]'
-                    : 'border-gray-200 hover:border-[#00473c]/50'
-                }`}
-              >
-                <Image
-                  src={image}
-                  alt={`${productName} view ${index + 1}`}
-                  fill
-                  className="object-cover"
-                />
-              </button>
-            ))}
-            {/* Show +X more button if there are more images */}
-            {hasMoreImages && (
-              <button
-                onClick={handleMoreClick}
-                className={`relative w-20 h-20 shrink-0 overflow-hidden border-2 transition-all ${
-                  selectedImage >= MAX_VISIBLE_THUMBNAILS
-                    ? 'border-[#00473c]'
-                    : 'border-gray-200 hover:border-[#00473c]/50'
-                }`}
-              >
-                <Image
-                  src={displayImages[MAX_VISIBLE_THUMBNAILS]}
-                  alt={`${productName} view ${MAX_VISIBLE_THUMBNAILS + 1}`}
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-                  <span className="text-white font-medium text-sm">+{remainingCount}</span>
-                </div>
-              </button>
-            )}
-          </div>
+          <>
+            {/* Mobile: Horizontal thumbnails below */}
+            <div className="md:hidden flex gap-2 overflow-x-auto scrollbar-hide order-2">
+              {visibleThumbnails.map((image, index) => (
+                <button
+                  key={index}
+                  onClick={() => setSelectedImage(index)}
+                  className={`relative w-16 h-16 shrink-0 overflow-hidden border-2 transition-all ${
+                    selectedImage === index
+                      ? 'border-[#00473c]'
+                      : 'border-gray-200 hover:border-[#00473c]/50'
+                  }`}
+                >
+                  <Image
+                    src={image}
+                    alt={`${productName} view ${index + 1}`}
+                    fill
+                    className="object-cover"
+                  />
+                </button>
+              ))}
+              {/* Show +X more button if there are more images */}
+              {hasMoreImages && (
+                <button
+                  onClick={handleMoreClick}
+                  className={`relative w-16 h-16 shrink-0 overflow-hidden border-2 transition-all ${
+                    selectedImage >= MAX_VISIBLE_THUMBNAILS
+                      ? 'border-[#00473c]'
+                      : 'border-gray-200 hover:border-[#00473c]/50'
+                  }`}
+                >
+                  <Image
+                    src={displayImages[MAX_VISIBLE_THUMBNAILS]}
+                    alt={`${productName} view ${MAX_VISIBLE_THUMBNAILS + 1}`}
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                    <span className="text-white font-medium text-xs">+{remainingCount}</span>
+                  </div>
+                </button>
+              )}
+            </div>
+            
+            {/* Desktop: Vertical thumbnails on left */}
+            <div className="hidden md:flex flex-col gap-2 w-20 shrink-0 order-1">
+              {visibleThumbnails.map((image, index) => (
+                <button
+                  key={index}
+                  onClick={() => setSelectedImage(index)}
+                  className={`relative w-20 h-20 shrink-0 overflow-hidden border-2 transition-all ${
+                    selectedImage === index
+                      ? 'border-[#00473c]'
+                      : 'border-gray-200 hover:border-[#00473c]/50'
+                  }`}
+                >
+                  <Image
+                    src={image}
+                    alt={`${productName} view ${index + 1}`}
+                    fill
+                    className="object-cover"
+                  />
+                </button>
+              ))}
+              {/* Show +X more button if there are more images */}
+              {hasMoreImages && (
+                <button
+                  onClick={handleMoreClick}
+                  className={`relative w-20 h-20 shrink-0 overflow-hidden border-2 transition-all ${
+                    selectedImage >= MAX_VISIBLE_THUMBNAILS
+                      ? 'border-[#00473c]'
+                      : 'border-gray-200 hover:border-[#00473c]/50'
+                  }`}
+                >
+                  <Image
+                    src={displayImages[MAX_VISIBLE_THUMBNAILS]}
+                    alt={`${productName} view ${MAX_VISIBLE_THUMBNAILS + 1}`}
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                    <span className="text-white font-medium text-sm">+{remainingCount}</span>
+                  </div>
+                </button>
+              )}
+            </div>
+          </>
         )}
         
         {/* Main Image */}
-        <div className="relative flex-1 bg-[#f5f5f5] overflow-hidden" style={{ aspectRatio: '4/5' }}>
+        <div className="relative flex-1 bg-[#f5f5f5] overflow-hidden order-1 md:order-2" style={{ aspectRatio: '4/5' }}>
           <Image
             src={displayImages[selectedImage]}
             alt={productName}
@@ -93,19 +139,19 @@ const ProductGallery = ({ images, productName }: ProductGalleryProps) => {
             <>
               <button
                 onClick={() => setSelectedImage((prev) => (prev === 0 ? displayImages.length - 1 : prev - 1))}
-                className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-md transition-all"
+                className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-md transition-all"
                 aria-label="Previous image"
               >
-                <svg className="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 md:w-5 md:h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
               </button>
               <button
                 onClick={() => setSelectedImage((prev) => (prev === displayImages.length - 1 ? 0 : prev + 1))}
-                className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-md transition-all"
+                className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-md transition-all"
                 aria-label="Next image"
               >
-                <svg className="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 md:w-5 md:h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </button>
@@ -113,29 +159,7 @@ const ProductGallery = ({ images, productName }: ProductGalleryProps) => {
           )}
         </div>
         
-        {/* Mobile Thumbnail Strip */}
-        {displayImages.length > 1 && (
-          <div className="md:hidden flex gap-2 overflow-x-auto scrollbar-hide absolute bottom-4 left-4 right-4">
-            {displayImages.map((image, index) => (
-              <button
-                key={index}
-                onClick={() => setSelectedImage(index)}
-                className={`relative w-14 h-14 shrink-0 overflow-hidden border-2 transition-all ${
-                  selectedImage === index
-                    ? 'border-[#00473c]'
-                    : 'border-white hover:border-[#00473c]/50'
-                }`}
-              >
-                <Image
-                  src={image}
-                  alt={`${productName} view ${index + 1}`}
-                  fill
-                  className="object-cover"
-                />
-              </button>
-            ))}
-          </div>
-        )}
+
       </div>
 
       {/* All Images Modal */}

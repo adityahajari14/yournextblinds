@@ -35,39 +35,40 @@ const windowTypes = [
 // WindowTypes - "Find Your Match" section with window type options
 const WindowTypes = () => {
   return (
-    <section className="bg-[#f5fffd] px-6 lg:px-20 py-16 lg:py-20">
-      <div className="max-w-[1200px] mx-auto flex flex-col gap-10 lg:gap-14 items-center">
+    <section className="bg-[#f5fffd] px-4 md:px-6 lg:px-20 py-12 md:py-16 lg:py-20">
+      <div className="max-w-[1200px] mx-auto flex flex-col gap-8 md:gap-10 lg:gap-14 items-center">
         {/* Header */}
         <div className="text-center max-w-[600px]">
-          <h2 className="text-2xl md:text-3xl lg:text-[32px] font-medium text-black tracking-tight mb-3">
+          <h2 className="text-xl md:text-2xl lg:text-[32px] font-medium text-black tracking-tight mb-2 md:mb-3">
             Find Your Match
           </h2>
-          <p className="text-base lg:text-lg text-[#484848] leading-relaxed">
+          <p className="text-sm md:text-base lg:text-lg text-[#484848] leading-relaxed">
             Start by selecting the shape of your window or door
           </p>
         </div>
         
         {/* Window Types Grid */}
-        <div className="w-full flex flex-wrap justify-center lg:justify-between gap-8 lg:gap-4">
+        <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 lg:gap-4 justify-items-center">
           {windowTypes.map((type) => (
             <button
               key={type.id}
-              className="flex flex-col gap-5 items-center w-[174px] group"
+              className="flex flex-col gap-4 md:gap-5 items-center w-full max-w-[174px] group"
             >
-              <div className="h-[140px] flex items-center justify-center">
+              <div className="h-[100px] md:h-[140px] flex items-center justify-center">
                 <div 
                   className="relative transition-transform group-hover:scale-105"
-                  style={{ width: type.width, height: type.height }}
+                  style={{ width: `${type.width * 0.8}px`, height: `${type.height * 0.8}px` }}
                 >
                   <Image
                     src={type.icon}
                     alt={type.name}
                     fill
                     className="object-contain"
+                    sizes="(max-width: 768px) 70px, 88px"
                   />
                 </div>
               </div>
-              <span className="text-base lg:text-lg font-normal text-[#3a3a3a] text-center leading-snug">
+              <span className="text-sm md:text-base lg:text-lg font-normal text-[#3a3a3a] text-center leading-snug">
                 {type.name}
               </span>
             </button>

@@ -36,44 +36,44 @@ const FAQ = () => {
   };
 
   return (
-    <section className="bg-neutral-50 px-6 lg:px-20 py-16 lg:py-24">
-      <div className="max-w-[900px] mx-auto flex flex-col gap-8 lg:gap-10">
+    <section className="bg-neutral-50 px-4 md:px-6 lg:px-20 py-12 md:py-16 lg:py-24">
+      <div className="max-w-[900px] mx-auto flex flex-col gap-6 md:gap-8 lg:gap-10">
         {/* Header */}
-        <h2 className="text-3xl md:text-4xl lg:text-[40px] font-medium text-[#3a3a3a] text-center tracking-tight">
+        <h2 className="text-2xl md:text-3xl lg:text-[40px] font-medium text-[#3a3a3a] text-center tracking-tight">
           FAQ
         </h2>
         
         {/* FAQ List */}
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-4 md:gap-5">
           {faqData.map((faq) => (
             <div
               key={faq.id}
-              className="border-b border-[#e1dcd4] pb-5"
+              className="border-b border-[#e1dcd4] pb-4 md:pb-5"
             >
               <button
                 onClick={() => toggleFaq(faq.id)}
-                className="w-full flex gap-4 items-start text-left"
+                className="w-full flex gap-3 md:gap-4 items-start text-left"
                 aria-expanded={openId === faq.id}
               >
                 {/* Icon */}
-                <div className="flex-shrink-0 w-8 h-8 bg-[#00473c] rounded-full flex items-center justify-center">
+                <div className="flex-shrink-0 w-7 h-7 md:w-8 md:h-8 bg-[#00473c] rounded-full flex items-center justify-center">
                   {openId === faq.id ? (
-                    <Image src="/icons/cross.svg" alt="" width={13} height={13} />
+                    <Image src="/icons/cross.svg" alt="" width={11} height={11} className="md:w-[13px] md:h-[13px]" />
                   ) : (
-                    <Image src="/icons/plus.svg" alt="" width={19} height={19} />
+                    <Image src="/icons/plus.svg" alt="" width={16} height={16} className="md:w-[19px] md:h-[19px]" />
                   )}
                 </div>
                 
                 {/* Question */}
-                <span className="text-base lg:text-lg text-[#00473c] leading-relaxed pt-0.5 font-medium">
+                <span className="text-sm md:text-base lg:text-lg text-[#00473c] leading-relaxed pt-0.5 font-medium">
                   {faq.question}
                 </span>
               </button>
               
               {/* Answer */}
               {openId === faq.id && (
-                <div className="mt-4 ml-12">
-                  <p className="text-sm lg:text-base text-[#484848] leading-relaxed">
+                <div className="mt-3 md:mt-4 ml-10 md:ml-12">
+                  <p className="text-sm md:text-sm lg:text-base text-[#484848] leading-relaxed">
                     {faq.answer}
                   </p>
                 </div>

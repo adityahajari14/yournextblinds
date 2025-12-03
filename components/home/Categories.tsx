@@ -47,11 +47,11 @@ const Categories = () => {
   };
 
   return (
-    <section className="bg-white py-16 lg:py-24 overflow-hidden">
-      <div className="flex flex-col gap-[41px] items-center">
+    <section className="bg-white py-12 md:py-16 lg:py-24 overflow-hidden">
+      <div className="flex flex-col gap-8 md:gap-[41px] items-center">
         {/* Header with Navigation */}
-        <div className="w-full flex items-center justify-between px-6 lg:px-20">
-          <h2 className="text-2xl md:text-3xl lg:text-[32px] font-medium text-[#3a3a3a] tracking-tight">
+        <div className="w-full flex items-center justify-between px-4 md:px-6 lg:px-20">
+          <h2 className="text-xl md:text-2xl lg:text-[32px] font-medium text-[#3a3a3a] tracking-tight">
             Popular Categories
           </h2>
           <div className="hidden lg:flex gap-3">
@@ -78,12 +78,12 @@ const Categories = () => {
         
         {/* Categories Horizontal Scroll */}
         <div ref={scrollRef} className="w-full overflow-x-auto scrollbar-hide">
-          <div className="flex gap-6 h-[420px] items-center pl-6 lg:pl-20">
+          <div className="flex gap-4 md:gap-6 h-[350px] md:h-[420px] items-center pl-4 md:pl-6 lg:pl-20">
             {categories.map((category) => (
               <a
                 key={category.id}
                 href="#"
-                className="flex flex-col gap-4 shrink-0 w-[300px] h-full group"
+                className="flex flex-col gap-3 md:gap-4 shrink-0 w-[250px] md:w-[300px] h-full group"
               >
                 <div className="relative flex-1 w-full overflow-hidden rounded-sm">
                   <Image
@@ -93,7 +93,7 @@ const Categories = () => {
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                 </div>
-                <h3 className="text-base lg:text-lg font-medium text-[#3a3a3a] text-center w-full">
+                <h3 className="text-sm md:text-base lg:text-lg font-medium text-[#3a3a3a] text-center w-full">
                   {category.name}
                 </h3>
               </a>

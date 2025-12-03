@@ -103,12 +103,12 @@ const CustomizationModal = ({
   return (
     <div className="bg-white min-h-screen">
       {/* Breadcrumb */}
-      <div className="px-6 lg:px-20 py-4 border-b border-gray-100">
+      <div className="px-4 md:px-6 lg:px-20 py-3 md:py-4 border-b border-gray-100">
         <div className="max-w-[1200px] mx-auto">
-          <nav className="flex items-center gap-2 text-sm text-gray-500">
+          <nav className="flex items-center gap-2 text-xs md:text-sm text-gray-500">
             <Link href="/" className="hover:text-[#00473c]">{product.category}</Link>
             <span>&gt;</span>
-            <button onClick={onClose} className="hover:text-[#00473c]">{product.name}</button>
+            <button onClick={onClose} className="hover:text-[#00473c] truncate max-w-[120px] md:max-w-none">{product.name}</button>
             <span>&gt;</span>
             <span className="text-gray-900">Customize</span>
           </nav>
@@ -116,9 +116,9 @@ const CustomizationModal = ({
       </div>
 
       {/* Main Content */}
-      <div className="px-6 lg:px-20 py-8 pb-24">
+      <div className="px-4 md:px-6 lg:px-20 py-6 md:py-8 pb-24">
         <div className="max-w-[1200px] mx-auto">
-          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
+          <div className="flex flex-col lg:flex-row gap-6 md:gap-8 lg:gap-12">
             {/* Left - Gallery (Sticky on desktop) */}
             <div className="w-full lg:w-[45%] lg:sticky lg:top-4 lg:self-start">
               <ProductGallery images={product.images} productName={product.name} />
@@ -127,16 +127,16 @@ const CustomizationModal = ({
             {/* Right - Configuration */}
             <div className="w-full lg:w-[55%]">
               {/* Product Title */}
-              <h1 className="text-2xl lg:text-3xl font-medium text-[#3a3a3a] mb-2">{product.name}</h1>
-              <p className="text-sm text-gray-500 mb-2">
+              <h1 className="text-xl md:text-2xl lg:text-3xl font-medium text-[#3a3a3a] mb-2">{product.name}</h1>
+              <p className="text-xs md:text-sm text-gray-500 mb-2">
                 Estimated Shipping Date: <span className="text-[#00473c] font-medium">{product.estimatedDelivery}</span>
               </p>
-              <div className="flex items-center gap-1 mb-6">
+              <div className="flex items-center gap-1 mb-4 md:mb-6">
                 <StarRating rating={product.rating} />
               </div>
 
               {/* Configuration Title */}
-              <h2 className="text-xl font-medium text-[#3a3a3a] mb-6 mt-8">Configure Your Window Treatment</h2>
+              <h2 className="text-lg md:text-xl font-medium text-[#3a3a3a] mb-4 md:mb-6 mt-6 md:mt-8">Configure Your Window Treatment</h2>
 
               <div className="space-y-8 divide-y divide-gray-100">
                 {/* Size Selector */}
@@ -329,15 +329,15 @@ const CustomizationModal = ({
 
       {/* Sticky Bottom Bar */}
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-50">
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-20 py-4">
-          <div className="flex items-center justify-between">
+        <div className="max-w-[1200px] mx-auto px-4 md:px-6 lg:px-20 py-3 md:py-4">
+          <div className="flex items-center justify-between gap-4">
             <div>
-              <span className="text-sm text-gray-500">Price</span>
-              <div className="text-2xl font-bold text-[#3a3a3a]">${totalPrice}</div>
+              <span className="text-xs md:text-sm text-gray-500">Price</span>
+              <div className="text-xl md:text-2xl font-bold text-[#3a3a3a]">${totalPrice}</div>
             </div>
             <button
               onClick={handleBuyNow}
-              className="bg-[#00473c] text-white py-3 px-8 rounded font-medium hover:bg-[#003830] transition-colors"
+              className="bg-[#00473c] text-white py-2.5 md:py-3 px-6 md:px-8 rounded text-sm md:text-base font-medium hover:bg-[#003830] transition-colors"
             >
               Buy Now
             </button>
