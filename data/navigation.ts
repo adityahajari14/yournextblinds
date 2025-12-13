@@ -67,7 +67,7 @@ export const navigationData: NavigationItem[] = [
       {
         links: [
           { label: 'Skylight Blinds', href: '/collections/skylight-blinds', icon: '/nav-icons/skylight-blinds.webp' },
-          { label: 'Faux Wooden Blinds', href: '/collections/wooden-blinds', icon: '/nav-icons/wooden-blinds.webp' },
+          { label: 'Wooden Blinds', href: '/collections/wooden-blinds', icon: '/nav-icons/wooden-blinds.webp' },
           { label: 'Day and Night Blinds', href: '/collections/day-and-night-blinds', icon: '/nav-icons/day-night-blinds.webp' },
           { label: 'Blinds Accessories', href: '/collections/blinds-accessories', icon: '/nav-icons/day-night-blinds.webp' },
           { label: 'Motorized Day and Night Blinds', href: '/collections/motorized-day-and-night-blinds', icon: '/nav-icons/day-night-blinds.webp' },

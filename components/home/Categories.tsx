@@ -7,28 +7,33 @@ import Image from 'next/image';
 const categories = [
   {
     id: 1,
-    name: 'Honeycomb Black Blinds',
+    name: 'Vertical Blinds',
     image: '/home/categories/honeycomb-blinds.jpg',
+    href: '/collections/vertical-blinds',
   },
   {
     id: 2,
     name: 'No Drill Blinds',
     image: '/home/categories/no-drill-blinds.jpg',
+    href: '/collections/no-drill-blinds',
   },
   {
     id: 3,
     name: 'Roller Blinds',
     image: '/home/categories/roller-blinds.jpg',
+    href: '/collections/roller-blinds',
   },
   {
     id: 4,
-    name: 'Vertical Blinds',
+    name: 'Roman Blinds',
     image: '/home/categories/vertical-blinds.jpg',
+    href: '/collections/roman-blinds',
   },
   {
     id: 5,
     name: 'Wooden Blinds',
     image: '/home/categories/wooden-blinds.jpg',
+    href: '/collections/wooden-blinds',
   },
 ];
 
@@ -82,7 +87,7 @@ const Categories = () => {
             {categories.map((category) => (
               <a
                 key={category.id}
-                href="#"
+                href={category.href}
                 className="flex flex-col gap-3 md:gap-4 shrink-0 w-[250px] md:w-[300px] h-full group"
               >
                 <div className="relative flex-1 w-full overflow-hidden rounded-sm">
