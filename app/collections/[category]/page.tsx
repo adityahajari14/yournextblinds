@@ -1,9 +1,10 @@
 import { TopBar, Header, NavBar, Footer } from '@/components';
 import { CategoryHero, CollectionFilters, CollectionProductGrid } from '@/components/collection';
-import { fetchAllProducts } from '@/lib/api';
+import { fetchAllProducts, fetchTagBySlug } from '@/lib/api';
 import { mapProductDataToProduct } from '@/lib/productMapper';
 import { mapFilterToTagSlugs } from '@/lib/tagMapper';
 import { getAllFrontendCategories, getFrontendCategoryBySlug, mapDbCategoryToFrontend } from '@/lib/categoryMapper';
+import { isTagSlug } from '@/lib/tagUtils';
 import { Product } from '@/types/product';
 
 export async function generateStaticParams() {
@@ -23,31 +24,53 @@ export default async function CategoryPage({
   const { category } = await params;
   const filters = await searchParams;
 
-  const frontendCategory = getFrontendCategoryBySlug(category);
-  const categoryName = frontendCategory?.name || category;
+  // Check if the category slug is actually a tag slug
+  const isTag = await isTagSlug(category);
+  let tagData = null;
+  let categoryName = category;
+  
+  if (isTag) {
+    try {
+      const tagResponse = await fetchTagBySlug(category);
+      tagData = tagResponse.data;
+      categoryName = tagData.name;
+    } catch (error) {
+      console.error('Error fetching tag:', error);
+    }
+  } else {
+    const frontendCategory = getFrontendCategoryBySlug(category);
+    categoryName = frontendCategory?.name || category;
+  }
 
-  const pattern = filters.pattern;
-  const color = filters.color;
-  const window = filters.window;
-  const room = filters.room;
-  const solution = filters.solution;
-
+  // Build tag slugs array - if category is a tag, use it; otherwise use query params
   const tagSlugs: string[] = [];
   
-  if (pattern && typeof pattern === 'string') {
-    tagSlugs.push(...mapFilterToTagSlugs('pattern', pattern));
-  }
-  if (color && typeof color === 'string') {
-    tagSlugs.push(...mapFilterToTagSlugs('color', color));
-  }
-  if (window && typeof window === 'string') {
-    tagSlugs.push(...mapFilterToTagSlugs('window', window));
-  }
-  if (room && typeof room === 'string') {
-    tagSlugs.push(...mapFilterToTagSlugs('room', room));
-  }
-  if (solution && typeof solution === 'string') {
-    tagSlugs.push(...mapFilterToTagSlugs('solution', solution));
+  if (isTag && tagData) {
+    // Category is a tag slug, use it directly
+    tagSlugs.push(category);
+  } else {
+    // Use query parameters for filtering
+    const pattern = filters.pattern;
+    const color = filters.color;
+    const window = filters.window;
+    const room = filters.room;
+    const solution = filters.solution;
+    
+    if (pattern && typeof pattern === 'string') {
+      tagSlugs.push(...mapFilterToTagSlugs('pattern', pattern));
+    }
+    if (color && typeof color === 'string') {
+      tagSlugs.push(...mapFilterToTagSlugs('color', color));
+    }
+    if (window && typeof window === 'string') {
+      tagSlugs.push(...mapFilterToTagSlugs('window', window));
+    }
+    if (room && typeof room === 'string') {
+      tagSlugs.push(...mapFilterToTagSlugs('room', room));
+    }
+    if (solution && typeof solution === 'string') {
+      tagSlugs.push(...mapFilterToTagSlugs('solution', solution));
+    }
   }
 
   const uniqueTagSlugs = [...new Set(tagSlugs)];
@@ -59,17 +82,31 @@ export default async function CategoryPage({
       tags: uniqueTagSlugs.length > 0 ? uniqueTagSlugs : undefined,
     });
     
-    if (frontendCategory) {
-      filteredProducts = response.data
-        .filter((data) => {
-          return data.categories.some((dbCategory) => {
-            const mappedSlug = mapDbCategoryToFrontend(dbCategory.name, dbCategory.slug);
-            return mappedSlug === frontendCategory.slug;
-          });
-        })
-        .map((data) => mapProductDataToProduct(data));
-    } else {
+    // If category is a tag, show all products with that tag
+    // Otherwise, filter by category if a valid category is provided
+    if (isTag) {
+      // Show all products matching the tag
       filteredProducts = response.data.map((data) => mapProductDataToProduct(data));
+    } else {
+      const frontendCategory = getFrontendCategoryBySlug(category);
+      const hasActiveFilters = !!(filters.pattern || filters.color || filters.window || filters.room || filters.solution);
+      
+      if (hasActiveFilters) {
+        // Query parameters present, show all products matching the tags
+        filteredProducts = response.data.map((data) => mapProductDataToProduct(data));
+      } else if (frontendCategory) {
+        // No query parameters, filter by category
+        filteredProducts = response.data
+          .filter((data) => {
+            return data.categories.some((dbCategory) => {
+              const mappedSlug = mapDbCategoryToFrontend(dbCategory.name, dbCategory.slug);
+              return mappedSlug === frontendCategory.slug;
+            });
+          })
+          .map((data) => mapProductDataToProduct(data));
+      } else {
+        filteredProducts = response.data.map((data) => mapProductDataToProduct(data));
+      }
     }
   } catch (error) {
     console.error('Error fetching products:', error);

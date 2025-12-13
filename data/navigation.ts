@@ -1,5 +1,6 @@
 // Navigation Data Structure for Mega Menu
 // This file contains all navigation items, dropdowns, and mega-menu configurations
+import { getPrimaryTagSlug } from '@/lib/tagMapper';
 
 export interface NavigationLink {
   label: string;
@@ -78,27 +79,27 @@ export const navigationData: NavigationItem[] = [
     label: 'Shop by Colours',
     colorMenu: {
       colors: [
-        { name: 'White', color: '#FFFFFF', href: '/collections/vertical-blinds?color=white' },
-        { name: 'Black', color: '#292F36', href: '/collections/vertical-blinds?color=black' },
-        { name: 'Blue', color: '#30638E', href: '/collections/vertical-blinds?color=blue' },
-        { name: 'Yellow', color: '#DBD56E', href: '/collections/vertical-blinds?color=yellow' },
-        { name: 'Gold', color: '#FDF3D7', href: '/collections/vertical-blinds?color=gold' },
-        { name: 'Green', color: '#4AAD52', href: '/collections/vertical-blinds?color=green' },
-        { name: 'Grey / Silver', color: '#BABABA', href: '/collections/vertical-blinds?color=grey' },
-        { name: 'Purple', color: '#A23B72', href: '/collections/vertical-blinds?color=purple' },
-        { name: 'Orange', color: '#F18F01', href: '/collections/vertical-blinds?color=orange' },
-        { name: 'Red', color: '#CD533B', href: '/collections/vertical-blinds?color=red' },
-        { name: 'Pink', color: '#EAB8AE', href: '/collections/vertical-blinds?color=pink' },
+        { name: 'White', color: '#FFFFFF', href: `/collections/${getPrimaryTagSlug('color', 'white')}` },
+        { name: 'Black', color: '#292F36', href: `/collections/${getPrimaryTagSlug('color', 'black')}` },
+        { name: 'Blue', color: '#30638E', href: `/collections/${getPrimaryTagSlug('color', 'blue')}` },
+        { name: 'Yellow', color: '#DBD56E', href: `/collections/${getPrimaryTagSlug('color', 'yellow')}` },
+        { name: 'Gold', color: '#FDF3D7', href: `/collections/${getPrimaryTagSlug('color', 'gold')}` },
+        { name: 'Green', color: '#4AAD52', href: `/collections/${getPrimaryTagSlug('color', 'green')}` },
+        { name: 'Grey / Silver', color: '#BABABA', href: `/collections/${getPrimaryTagSlug('color', 'grey')}` },
+        { name: 'Purple', color: '#A23B72', href: `/collections/${getPrimaryTagSlug('color', 'purple')}` },
+        { name: 'Orange', color: '#F18F01', href: `/collections/${getPrimaryTagSlug('color', 'orange')}` },
+        { name: 'Red', color: '#CD533B', href: `/collections/${getPrimaryTagSlug('color', 'red')}` },
+        { name: 'Pink', color: '#EAB8AE', href: `/collections/${getPrimaryTagSlug('color', 'pink')}` },
       ],
       woodFinish: [
-        { name: 'Light Wood', color: '/nav-icons/light-wood.webp', href: '/collections/wooden-blinds?pattern=light-wood' },
-        { name: 'Medium Wood', color: '/nav-icons/medium-wood.webp', href: '/collections/wooden-blinds?pattern=medium-wood' },
+        { name: 'Light Wood', color: '/nav-icons/light-wood.webp', href: `/collections/${getPrimaryTagSlug('pattern', 'light-wood')}` },
+        { name: 'Medium Wood', color: '/nav-icons/medium-wood.webp', href: `/collections/${getPrimaryTagSlug('pattern', 'medium-wood')}` },
       ],
       patterns: [
-        { label: 'Animal', href: '/collections/vertical-blinds?pattern=animal', icon: '/nav-icons/animal-pattern.webp' },
-        { label: 'Floral', href: '/collections/vertical-blinds?pattern=floral', icon: '/nav-icons/floral-pattern.webp' },
-        { label: 'Geometric', href: '/collections/vertical-blinds?pattern=geometric', icon: '/nav-icons/geometric-pattern.webp' },
-        { label: 'Striped', href: '/collections/vertical-blinds?pattern=striped', icon: '/nav-icons/stripped-pattern.webp' },
+        { label: 'Animal', href: `/collections/${getPrimaryTagSlug('pattern', 'animal')}`, icon: '/nav-icons/animal-pattern.webp' },
+        { label: 'Floral', href: `/collections/${getPrimaryTagSlug('pattern', 'floral')}`, icon: '/nav-icons/floral-pattern.webp' },
+        { label: 'Geometric', href: `/collections/${getPrimaryTagSlug('pattern', 'geometric')}`, icon: '/nav-icons/geometric-pattern.webp' },
+        { label: 'Striped', href: `/collections/${getPrimaryTagSlug('pattern', 'striped')}`, icon: '/nav-icons/stripped-pattern.webp' },
         { label: 'Children', href: '/collections/children', icon: '/nav-icons/children-pattern.webp' },
       ]
     }
@@ -126,17 +127,17 @@ export const navigationData: NavigationItem[] = [
     megaMenu: [
       {
         links: [
-          { label: 'Bay Window', href: '/collections/vertical-blinds?window=bay-window', icon: '/nav-icons/bay-window.svg' },
-          { label: 'Conservatory Window', href: '/collections/vertical-blinds?window=conservatory-window', icon: '/nav-icons/conservatory-window.svg' },
+          { label: 'Bay Window', href: `/collections/${getPrimaryTagSlug('window', 'bay-window')}`, icon: '/nav-icons/bay-window.svg' },
+          { label: 'Conservatory Window', href: `/collections/${getPrimaryTagSlug('window', 'conservatory-window')}`, icon: '/nav-icons/conservatory-window.svg' },
           { label: 'Roof Skylight', href: '/collections/skylight-blinds', icon: '/nav-icons/roof-skylight.svg' },
-          { label: 'Tilt and Turn Window', href: '/collections/vertical-blinds?window=tilt-and-turn-window', icon: '/nav-icons/tilt-turn-window.svg' },
+          { label: 'Tilt and Turn Window', href: `/collections/${getPrimaryTagSlug('window', 'tilt-and-turn-window')}`, icon: '/nav-icons/tilt-turn-window.svg' },
         ]
       },
       {
         links: [
-          { label: 'Bi Fold Window', href: '/collections/vertical-blinds?window=bi-fold-window', icon: '/nav-icons/bi-fold-window.svg' },
-          { label: 'French Doors', href: '/collections/vertical-blinds?window=french-door', icon: '/nav-icons/french-door.svg' },
-          { label: 'Sliding Door', href: '/collections/vertical-blinds?window=sliding-door', icon: '/nav-icons/sliding-door.svg' },
+          { label: 'Bi Fold Window', href: `/collections/${getPrimaryTagSlug('window', 'bi-fold-window')}`, icon: '/nav-icons/bi-fold-window.svg' },
+          { label: 'French Doors', href: `/collections/${getPrimaryTagSlug('window', 'french-door')}`, icon: '/nav-icons/french-door.svg' },
+          { label: 'Sliding Door', href: `/collections/${getPrimaryTagSlug('window', 'sliding-door')}`, icon: '/nav-icons/sliding-door.svg' },
         ]
       }
     ]
@@ -146,22 +147,22 @@ export const navigationData: NavigationItem[] = [
     megaMenu: [
       {
         links: [
-          { label: 'Thermal Blinds', href: '/collections/roller-blinds?solution=thermal-blinds', icon: '/nav-icons/thermal-blinds.svg' },
-          { label: 'Better Sleep Blinds', href: '/collections/roller-blinds?solution=better-sleep-blinds', icon: '/nav-icons/better-sleep-blinds.svg' },
+          { label: 'Thermal Blinds', href: `/collections/${getPrimaryTagSlug('solution', 'thermal-blinds')}`, icon: '/nav-icons/thermal-blinds.svg' },
+          { label: 'Better Sleep Blinds', href: `/collections/${getPrimaryTagSlug('solution', 'better-sleep-blinds')}`, icon: '/nav-icons/better-sleep-blinds.svg' },
         ]
       },
       {
         links: [
-          { label: 'Cordless Blinds', href: '/collections/roller-blinds?solution=cordless-blinds', icon: '/nav-icons/cordless-blinds.svg' },
-          { label: 'No Drill Blinds', href: '/collections/roller-blinds?solution=no-drill-blinds', icon: '/nav-icons/no-drill-blinds.svg' },
-          { label: 'Blackout Blinds', href: '/collections/roller-blinds?solution=blackout-blinds', icon: '/nav-icons/blackout-blinds.svg' },
+          { label: 'Cordless Blinds', href: `/collections/${getPrimaryTagSlug('solution', 'cordless-blinds')}`, icon: '/nav-icons/cordless-blinds.svg' },
+          { label: 'No Drill Blinds', href: `/collections/${getPrimaryTagSlug('solution', 'no-drill-blinds')}`, icon: '/nav-icons/no-drill-blinds.svg' },
+          { label: 'Blackout Blinds', href: `/collections/${getPrimaryTagSlug('solution', 'blackout-blinds')}`, icon: '/nav-icons/blackout-blinds.svg' },
         ]
       },
       {
         links: [
-          { label: 'Waterproof Blinds', href: '/collections/roller-blinds?solution=waterproof-blinds', icon: '/nav-icons/waterproof-blinds.svg' },
-          { label: 'Easy Wipe Blinds', href: '/collections/roller-blinds?solution=easy-wipe-blinds', icon: '/nav-icons/easy-wipe-blinds.svg' },
-          { label: 'Taped Blinds', href: '/collections/roller-blinds?solution=taped-blinds', icon: '/nav-icons/taped-blinds.svg' },
+          { label: 'Waterproof Blinds', href: `/collections/${getPrimaryTagSlug('solution', 'waterproof-blinds')}`, icon: '/nav-icons/waterproof-blinds.svg' },
+          { label: 'Easy Wipe Blinds', href: `/collections/${getPrimaryTagSlug('solution', 'easy-wipe-blinds')}`, icon: '/nav-icons/easy-wipe-blinds.svg' },
+          { label: 'Taped Blinds', href: `/collections/${getPrimaryTagSlug('solution', 'taped-blinds')}`, icon: '/nav-icons/taped-blinds.svg' },
         ]
       }
     ]
@@ -169,13 +170,13 @@ export const navigationData: NavigationItem[] = [
   {
     label: 'Shop by Room',
     roomMenu: [
-      { name: 'Conservatory', image: '/nav-icons/rooms-conservatory.webp', href: '/collections/vertical-blinds?room=conservatory' },
-      { name: 'Bedroom', image: '/nav-icons/rooms-bedroom.webp', href: '/collections/vertical-blinds?room=bedroom' },
-      { name: 'Kitchen', image: '/nav-icons/rooms-kitchen.webp', href: '/collections/vertical-blinds?room=kitchen' },
-      { name: 'Office', image: '/nav-icons/rooms-office.webp', href: '/collections/vertical-blinds?room=office' },
-      { name: 'Bathroom', image: '/nav-icons/rooms-bathroom.webp', href: '/collections/vertical-blinds?room=bathroom' },
-      { name: 'Living Room', image: '/nav-icons/rooms-livingroom.webp', href: '/collections/vertical-blinds?room=living-room' },
-      { name: 'Dining Room', image: '/nav-icons/rooms-diningroom.webp', href: '/collections/vertical-blinds?room=dining-room' },
+      { name: 'Conservatory', image: '/nav-icons/rooms-conservatory.webp', href: `/collections/${getPrimaryTagSlug('room', 'conservatory')}` },
+      { name: 'Bedroom', image: '/nav-icons/rooms-bedroom.webp', href: `/collections/${getPrimaryTagSlug('room', 'bedroom')}` },
+      { name: 'Kitchen', image: '/nav-icons/rooms-kitchen.webp', href: `/collections/${getPrimaryTagSlug('room', 'kitchen')}` },
+      { name: 'Office', image: '/nav-icons/rooms-office.webp', href: `/collections/${getPrimaryTagSlug('room', 'office')}` },
+      { name: 'Bathroom', image: '/nav-icons/rooms-bathroom.webp', href: `/collections/${getPrimaryTagSlug('room', 'bathroom')}` },
+      { name: 'Living Room', image: '/nav-icons/rooms-livingroom.webp', href: `/collections/${getPrimaryTagSlug('room', 'living-room')}` },
+      { name: 'Dining Room', image: '/nav-icons/rooms-diningroom.webp', href: `/collections/${getPrimaryTagSlug('room', 'dining-room')}` },
       { name: 'Children', image: '/nav-icons/rooms-children.webp', href: '/collections/children' },
     ]
   }

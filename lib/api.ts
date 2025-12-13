@@ -128,3 +128,80 @@ export async function fetchProductBySlug(slug: string): Promise<ProductResponse>
   }
 }
 
+export interface TagData {
+  id: string;
+  name: string;
+  slug: string;
+  type: string;
+  _count?: {
+    products: number;
+  };
+}
+
+export interface TagsResponse {
+  success: boolean;
+  data: TagData[];
+}
+
+export async function fetchTagsByType(type?: 'COLORS' | 'NO_DRILL_BLINDS' | 'WINDOW_TYPE' | 'SOLUTION' | 'ROOM'): Promise<TagsResponse> {
+  let url = `${API_BASE_URL}/api/tags`;
+  
+  if (type) {
+    url = `${API_BASE_URL}/api/tags/type/${type}`;
+  }
+  
+  try {
+    const response = await fetch(url, {
+      next: { revalidate: 60 },
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error(`API Error [${response.status}]: ${errorText}`);
+      throw new Error(`Failed to fetch tags: ${response.status} ${response.statusText}`);
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error('Fetch error:', error);
+    console.error('Attempted URL:', url);
+    throw error;
+  }
+}
+
+export interface TagResponse {
+  success: boolean;
+  data: TagData;
+}
+
+export async function fetchTagBySlug(slug: string): Promise<TagResponse> {
+  const url = `${API_BASE_URL}/api/tags/slug/${slug}`;
+  
+  try {
+    const response = await fetch(url, {
+      next: { revalidate: 60 },
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error(`API Error [${response.status}]: ${errorText}`);
+      if (response.status === 404) {
+        throw new Error('Tag not found');
+      }
+      throw new Error(`Failed to fetch tag: ${response.status} ${response.statusText}`);
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error('Fetch error:', error);
+    console.error('Attempted URL:', url);
+    throw error;
+  }
+}
+

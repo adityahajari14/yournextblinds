@@ -102,3 +102,12 @@ export function mapFilterToTagSlugs(filterType: string, filterValue: string): st
   }
 }
 
+/**
+ * Gets the primary tag slug for a filter value (first slug in the array)
+ * Used for generating navigation links
+ */
+export function getPrimaryTagSlug(filterType: string, filterValue: string): string {
+  const slugs = mapFilterToTagSlugs(filterType, filterValue);
+  return slugs[0] || filterValue.toLowerCase().replace(/\s+/g, '-');
+}
+

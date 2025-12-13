@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { fetchAllProducts } from '@/lib/api';
 import { getAllFrontendCategories, FrontendCategory, mapDbCategoryToFrontend } from '@/lib/categoryMapper';
+import { mapFilterToTagSlugs } from '@/lib/tagMapper';
 
 interface CategoryWithCount extends FrontendCategory {
   count: number;
@@ -29,7 +30,34 @@ export default function CollectionFilters({ currentCategory, activeFilters }: Co
   useEffect(() => {
     const loadCategoryCounts = async () => {
       try {
-        const response = await fetchAllProducts({ limit: 1000 });
+        setLoading(true);
+        
+        // Build tag slugs from active filters
+        const tagSlugs: string[] = [];
+        if (activeFilters.pattern) {
+          tagSlugs.push(...mapFilterToTagSlugs('pattern', activeFilters.pattern));
+        }
+        if (activeFilters.color) {
+          tagSlugs.push(...mapFilterToTagSlugs('color', activeFilters.color));
+        }
+        if (activeFilters.window) {
+          tagSlugs.push(...mapFilterToTagSlugs('window', activeFilters.window));
+        }
+        if (activeFilters.room) {
+          tagSlugs.push(...mapFilterToTagSlugs('room', activeFilters.room));
+        }
+        if (activeFilters.solution) {
+          tagSlugs.push(...mapFilterToTagSlugs('solution', activeFilters.solution));
+        }
+        
+        const uniqueTagSlugs = [...new Set(tagSlugs)];
+        
+        // Fetch products with active tag filters (if any)
+        const response = await fetchAllProducts({ 
+          limit: 1000,
+          tags: uniqueTagSlugs.length > 0 ? uniqueTagSlugs : undefined,
+        });
+        
         const frontendCategories = getAllFrontendCategories();
         
         const categoryCounts: Record<string, number> = {};
@@ -37,6 +65,7 @@ export default function CollectionFilters({ currentCategory, activeFilters }: Co
           categoryCounts[cat.slug] = 0;
         });
 
+        // Count products per category from the filtered results
         response.data.forEach((product) => {
           product.categories.forEach((dbCategory) => {
             const frontendSlug = mapDbCategoryToFrontend(dbCategory.name, dbCategory.slug);
@@ -61,7 +90,7 @@ export default function CollectionFilters({ currentCategory, activeFilters }: Co
     };
 
     loadCategoryCounts();
-  }, []);
+  }, [activeFilters.pattern, activeFilters.color, activeFilters.window, activeFilters.room, activeFilters.solution]);
 
   const buildFilterUrl = (filterType: string, value: string) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -123,10 +152,20 @@ export default function CollectionFilters({ currentCategory, activeFilters }: Co
           <div className="space-y-1">
             {categories.map((category) => {
               const isActive = currentCategory === category.slug;
+              // Preserve active filters when switching categories
+              const params = new URLSearchParams();
+              if (activeFilters.pattern) params.set('pattern', activeFilters.pattern);
+              if (activeFilters.color) params.set('color', activeFilters.color);
+              if (activeFilters.window) params.set('window', activeFilters.window);
+              if (activeFilters.room) params.set('room', activeFilters.room);
+              if (activeFilters.solution) params.set('solution', activeFilters.solution);
+              const queryString = params.toString();
+              const href = `/collections/${category.slug}${queryString ? `?${queryString}` : ''}`;
+              
               return (
                 <Link
                   key={category.slug}
-                  href={`/collections/${category.slug}`}
+                  href={href}
                   className={`flex items-center justify-between px-2 py-1.5 rounded text-sm transition-colors ${
                     isActive
                       ? 'bg-gray-100 text-gray-900 font-medium'
