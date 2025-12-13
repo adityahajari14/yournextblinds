@@ -24,6 +24,13 @@ export default async function CategoryPage({
   const { category } = await params;
   const filters = await searchParams;
 
+  // Extract filter values from search params
+  const pattern = filters.pattern;
+  const color = filters.color;
+  const window = filters.window;
+  const room = filters.room;
+  const solution = filters.solution;
+
   // Check if the category slug is actually a tag slug
   const isTag = await isTagSlug(category);
   let tagData = null;
@@ -50,11 +57,6 @@ export default async function CategoryPage({
     tagSlugs.push(category);
   } else {
     // Use query parameters for filtering
-    const pattern = filters.pattern;
-    const color = filters.color;
-    const window = filters.window;
-    const room = filters.room;
-    const solution = filters.solution;
     
     if (pattern && typeof pattern === 'string') {
       tagSlugs.push(...mapFilterToTagSlugs('pattern', pattern));
