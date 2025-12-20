@@ -62,7 +62,7 @@ const SizeSelector = ({
   return (
     <div className="space-y-4">
       <h3 className="text-base font-medium text-[#3a3a3a]">Choose Your Size</h3>
-      
+
       <div className="space-y-3">
         {/* Width */}
         <div className="flex items-center gap-4">
@@ -121,7 +121,7 @@ const SizeSelector = ({
             </div>
           </div>
         </div>
-        
+
         {/* Height */}
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2 w-24">
@@ -180,7 +180,7 @@ const SizeSelector = ({
           </div>
         </div>
       </div>
-      
+
       {/* How to Measure Link */}
       <button className="flex items-center gap-2 text-sm text-[#00473c] hover:underline">
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

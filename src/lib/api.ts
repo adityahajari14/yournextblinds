@@ -3,11 +3,11 @@ import {
   ApiProductsResponse,
   ApiProductResponse,
   Product,
-  DEFAULT_PRODUCT_FEATURES,
   DEFAULT_ESTIMATED_DELIVERY,
   DEFAULT_RATING,
   DEFAULT_REVIEW_COUNT,
 } from '@/types';
+import { getCategoryCustomizations } from '@/data/categoryCustomizations';
 
 // ============================================
 // API Configuration
@@ -35,7 +35,7 @@ if (typeof window === 'undefined' && process.env.NODE_ENV === 'development') {
 
 async function apiFetch<T>(endpoint: string, options?: RequestInit): Promise<T> {
   const url = `${API_BASE_URL}${endpoint}`;
-  
+
   try {
     const response = await fetch(url, {
       next: { revalidate: 60 },
@@ -95,7 +95,7 @@ interface FetchProductsParams {
 
 export async function fetchProducts(params?: FetchProductsParams): Promise<ApiProductsResponse> {
   const queryParams = new URLSearchParams();
-  
+
   if (params?.page) queryParams.append('page', params.page.toString());
   if (params?.limit) queryParams.append('limit', params.limit.toString());
   if (params?.tags?.length) queryParams.append('tags', params.tags.join(','));
@@ -115,7 +115,7 @@ export async function fetchProductBySlug(slug: string): Promise<ApiProductRespon
  */
 export async function fetchProductsByCategory(categorySlug: string): Promise<ApiProduct[]> {
   const response = await fetchProducts({ limit: 500 });
-  
+
   return response.data.filter((product) =>
     product.categories.some((cat) => cat.slug === categorySlug)
   );
@@ -208,8 +208,12 @@ export function formatPriceWithCurrency(price: number, currency: string = 'GBP')
  */
 export function transformProduct(apiProduct: ApiProduct): Product {
   const categoryName = apiProduct.categories[0]?.name || 'Blinds';
+  const categorySlug = apiProduct.categories[0]?.slug || 'default';
   const basePrice = parsePrice(apiProduct.basePrice);
   const oldPrice = parsePrice(apiProduct.oldPrice);
+
+  // Get category-specific customization features
+  const features = getCategoryCustomizations(categorySlug);
 
   return {
     id: apiProduct.id,
@@ -224,7 +228,7 @@ export function transformProduct(apiProduct: ApiProduct): Product {
     estimatedDelivery: DEFAULT_ESTIMATED_DELIVERY,
     description: apiProduct.description || '',
     images: apiProduct.images.length > 0 ? apiProduct.images : [],
-    features: DEFAULT_PRODUCT_FEATURES,
+    features: features,
     reviews: [],
     relatedProducts: [],
   };
@@ -250,17 +254,17 @@ export function getOriginalPricePerSqM(apiProduct: ApiProduct): number {
 export function extractFilterOptions(products: ApiProduct[]) {
   const colors = new Set<string>();
   const patterns = new Set<string>();
-  
+
   // Common color keywords
   const colorKeywords = ['white', 'black', 'grey', 'gray', 'blue', 'red', 'green', 'yellow', 'orange', 'pink', 'purple', 'brown', 'beige', 'cream', 'ivory', 'silver', 'gold'];
-  
+
   // Pattern keywords
   const patternKeywords = ['floral', 'striped', 'geometric', 'abstract', 'animal', 'wood', 'plain', 'solid'];
 
   products.forEach((product) => {
     product.tags.forEach((tag) => {
       const tagLower = tag.slug.toLowerCase();
-      
+
       // Check for colors
       for (const color of colorKeywords) {
         if (tagLower.includes(color)) {
@@ -268,7 +272,7 @@ export function extractFilterOptions(products: ApiProduct[]) {
           break;
         }
       }
-      
+
       // Check for patterns
       for (const pattern of patternKeywords) {
         if (tagLower.includes(pattern)) {

@@ -10,51 +10,61 @@ interface HeadrailSelectorProps {
 }
 
 const HeadrailSelector = ({ options, selectedHeadrail, onHeadrailChange }: HeadrailSelectorProps) => {
-  const selectedOption = options.find((opt) => opt.id === selectedHeadrail);
-  
   return (
     <div className="flex flex-col gap-4">
-      <h3 className="text-lg font-medium text-black">Choose Your Headrail</h3>
-      
-      {/* Option Tabs */}
-      <div className="flex border border-[#d9d9d9] overflow-hidden">
-        {options.map((option, index) => (
+      <div className="flex items-center gap-2">
+        <h3 className="text-lg font-medium text-[#3a3a3a]">Select Your Headrail</h3>
+        <button className="w-5 h-5 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-400 text-xs hover:border-gray-600 hover:text-gray-600">
+          ?
+        </button>
+      </div>
+
+      {/* Box-style Options Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {options.map((option) => (
           <button
             key={option.id}
             onClick={() => onHeadrailChange(option.id)}
-            className={`flex-1 px-4 py-2.5 text-sm transition-all ${
-              selectedHeadrail === option.id
-                ? 'bg-[#f6fffd] text-[#00473c] border-[#00473c]'
-                : 'bg-white text-black hover:bg-gray-50'
-            } ${index > 0 ? 'border-l border-[#d9d9d9]' : ''}`}
+            className={`relative border-2 rounded-lg p-4 transition-all hover:border-[#00473c] ${selectedHeadrail === option.id
+              ? 'border-[#00473c] bg-[#f6fffd]'
+              : 'border-gray-300 bg-white'
+              }`}
           >
-            {option.name}
+            {/* Image */}
+            {option.image && (
+              <div className="relative h-[140px] w-full mb-3 bg-gray-50 rounded overflow-hidden">
+                <Image
+                  src={option.image}
+                  alt={option.name}
+                  fill
+                  className="object-contain p-2"
+                />
+              </div>
+            )}
+
+            {/* Option Name */}
+            <p className="text-sm font-medium text-[#3a3a3a] text-center">
+              {option.name}
+            </p>
+
+            {/* Price Badge (if price > 0) */}
+            {option.price != null && option.price > 0 && (
+              <span className="absolute top-2 right-2 bg-[#00473c] text-white text-xs px-2 py-1 rounded">
+                +£{option.price.toFixed(2)}
+              </span>
+            )}
+
+            {/* Selected Indicator */}
+            {selectedHeadrail === option.id && (
+              <div className="absolute top-2 left-2 w-5 h-5 bg-[#00473c] rounded-full flex items-center justify-center">
+                <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+            )}
           </button>
         ))}
       </div>
-      
-      {/* Selected Option Preview */}
-      {selectedOption && (
-        <div className="border border-[#d9d9d9] p-4">
-          <p className="text-sm font-medium text-black mb-3">
-            {selectedOption.id === 'slim' ? 'Slim Headrail' : selectedOption.name.replace(' (free)', '')}
-          </p>
-          {selectedOption.image && (
-            <div className="relative h-[120px] w-[180px] bg-gray-50 overflow-hidden">
-              <Image
-                src={selectedOption.image}
-                alt={selectedOption.name}
-                fill
-                className="object-contain"
-              />
-              {/* Price Badge */}
-              <span className="absolute bottom-2 left-2 bg-[#00473c] text-white text-xs px-2 py-1">
-                Adds ${(selectedOption.price || 0).toFixed(2)}
-              </span>
-            </div>
-          )}
-        </div>
-      )}
     </div>
   );
 };

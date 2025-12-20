@@ -1,14 +1,10 @@
+// Customization Selectors
 export { default as SizeSelector } from './SizeSelector';
-export { default as RoomSelector } from './RoomSelector';
-export { default as MountSelector } from './MountSelector';
 export { default as HeadrailSelector } from './HeadrailSelector';
-export { default as OpenStyleSelector } from './OpenStyleSelector';
-export { default as WandPositionSelector } from './WandPositionSelector';
-export { default as ValanceSelector } from './ValanceSelector';
-export { default as DropdownSelector } from './DropdownSelector';
-export { default as ControlSelector } from './ControlSelector';
-export { default as ColourSelector } from './ColourSelector';
-export { default as RollerStyleSelector } from './RollerStyleSelector';
-export { default as FabricTypeSelector } from './FabricTypeSelector';
-export { default as BottomBarSelector } from './BottomBarSelector';
-export { default as LiftSelector } from './LiftSelector';
+export { default as HeadrailColourSelector } from './HeadrailColourSelector';
+export { default as InstallationMethodSelector } from './InstallationMethodSelector';
+export { default as ControlOptionSelector } from './ControlOptionSelector';
+export { default as StackingSelector } from './StackingSelector';
+export { default as ControlSideSelector } from './ControlSideSelector';
+export { default as BottomChainSelector } from './BottomChainSelector';
+export { default as BracketTypeSelector } from './BracketTypeSelector';

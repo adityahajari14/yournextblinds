@@ -33,20 +33,14 @@ export interface ProductReview {
 
 export interface ProductFeatures {
   hasSize: boolean;
-  hasRoom: boolean;
-  hasMount: boolean;
   hasHeadrail: boolean;
-  hasOpenStyle: boolean;
-  hasWandPosition: boolean;
-  hasValance: boolean;
+  hasHeadrailColour: boolean;
+  hasInstallationMethod: boolean;
+  hasControlOption: boolean;
+  hasStacking: boolean;
+  hasControlSide: boolean;
   hasBottomChain: boolean;
   hasBracketType: boolean;
-  hasControl: boolean;
-  hasColour: boolean;
-  hasRollerStyle: boolean;
-  hasFabricType: boolean;
-  hasBottomBar: boolean;
-  hasLift: boolean;
 }
 
 export interface Product {
@@ -78,22 +72,14 @@ export interface ProductConfiguration {
   height: number;
   heightFraction: string;
   heightUnit: string;
-  room: string | null;
-  mount: string;
   headrail: string | null;
-  openStyle: string | null;
-  wandPosition: string | null;
-  valance: string | null;
+  headrailColour: string | null;
+  installationMethod: string | null;
+  controlOption: string | null;
+  stacking: string | null;
+  controlSide: string | null;
   bottomChain: string | null;
   bracketType: string | null;
-  control: string | null;
-  controlPosition: string | null;
-  colour: string | null;
-  rollerStyle: string | null;
-  fabricType: string | null;
-  bottomBar: string | null;
-  lift: string | null;
-  liftPosition: string | null;
 }
 
 export const DEFAULT_CONFIGURATION: ProductConfiguration = {
@@ -103,22 +89,14 @@ export const DEFAULT_CONFIGURATION: ProductConfiguration = {
   height: 0,
   heightFraction: '0',
   heightUnit: 'inches',
-  room: null,
-  mount: 'inside',
   headrail: null,
-  openStyle: null,
-  wandPosition: null,
-  valance: null,
+  headrailColour: null,
+  installationMethod: null,
+  controlOption: null,
+  stacking: null,
+  controlSide: null,
   bottomChain: null,
   bracketType: null,
-  control: null,
-  controlPosition: null,
-  colour: null,
-  rollerStyle: null,
-  fabricType: null,
-  bottomBar: null,
-  lift: null,
-  liftPosition: null,
 };
 
 // ============================================
@@ -219,20 +197,14 @@ export interface ApiTagsResponse {
 
 export const DEFAULT_PRODUCT_FEATURES: ProductFeatures = {
   hasSize: true,
-  hasRoom: true,
-  hasMount: true,
   hasHeadrail: false,
-  hasOpenStyle: false,
-  hasWandPosition: false,
-  hasValance: false,
+  hasHeadrailColour: false,
+  hasInstallationMethod: false,
+  hasControlOption: false,
+  hasStacking: false,
+  hasControlSide: false,
   hasBottomChain: false,
   hasBracketType: false,
-  hasControl: false,
-  hasColour: false,
-  hasRollerStyle: false,
-  hasFabricType: false,
-  hasBottomBar: false,
-  hasLift: false,
 };
 
 export const DEFAULT_ESTIMATED_DELIVERY = '22 December 2025';

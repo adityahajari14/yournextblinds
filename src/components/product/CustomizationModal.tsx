@@ -9,37 +9,24 @@ import StarRating from './StarRating';
 import { calculatePrice, formatPrice, formatPriceWithCurrency } from '@/lib/api';
 import {
   SizeSelector,
-  MountSelector,
   HeadrailSelector,
-  OpenStyleSelector,
-  WandPositionSelector,
-  ValanceSelector,
-  DropdownSelector,
-  ControlSelector,
-  ColourSelector,
-  RollerStyleSelector,
-  FabricTypeSelector,
-  BottomBarSelector,
-  LiftSelector,
-  // RoomSelector,
+  HeadrailColourSelector,
+  InstallationMethodSelector,
+  ControlOptionSelector,
+  StackingSelector,
+  ControlSideSelector,
+  BottomChainSelector,
+  BracketTypeSelector,
 } from './customization';
 import {
- // ROOM_OPTIONS,
-  MOUNT_OPTIONS,
-  CONTROL_OPTIONS,
-  CONTROL_POSITION_OPTIONS,
-  LIFT_OPTIONS,
-  LIFT_POSITION_OPTIONS,
-  VALANCE_OPTIONS,
   HEADRAIL_OPTIONS,
-  WAND_POSITION_OPTIONS,
-  OPEN_STYLE_OPTIONS,
-  ROLLER_STYLE_OPTIONS,
-  BOTTOM_BAR_OPTIONS,
-  COLOUR_OPTIONS,
-  FABRIC_TYPE_OPTIONS,
+  HEADRAIL_COLOUR_OPTIONS,
+  INSTALLATION_METHOD_OPTIONS,
+  CONTROL_OPTIONS,
+  STACKING_OPTIONS,
+  CONTROL_SIDE_OPTIONS,
   BOTTOM_CHAIN_OPTIONS,
-  BRACKET_OPTIONS,
+  BRACKET_TYPE_OPTIONS,
 } from '@/data/customizations';
 
 interface CustomizationModalProps {
@@ -62,7 +49,6 @@ const CustomizationModal = ({
   const { addToCart } = useCart();
 
   // Calculate base price based on size if basePricePerSquareMeter is provided
-  // If no size is selected (width or height is 0), return base price per square meter
   const basePrice = useMemo(() => {
     if (basePricePerSquareMeter) {
       // If no size is selected, return base price per square meter
@@ -89,32 +75,39 @@ const CustomizationModal = ({
       const option = HEADRAIL_OPTIONS.find((o) => o.id === config.headrail);
       cost += option?.price || 0;
     }
-    if (config.openStyle && product.features.hasOpenStyle) {
-      const option = OPEN_STYLE_OPTIONS.find((o) => o.id === config.openStyle);
+
+    if (config.headrailColour && product.features.hasHeadrailColour) {
+      const option = HEADRAIL_COLOUR_OPTIONS.find((o) => o.id === config.headrailColour);
       cost += option?.price || 0;
     }
-    if (config.valance && product.features.hasValance) {
-      const option = VALANCE_OPTIONS.find((o) => o.id === config.valance);
+
+    if (config.installationMethod && product.features.hasInstallationMethod) {
+      const option = INSTALLATION_METHOD_OPTIONS.find((o) => o.id === config.installationMethod);
       cost += option?.price || 0;
     }
-    if (config.control && product.features.hasControl) {
-      const option = CONTROL_OPTIONS.find((o) => o.id === config.control);
+
+    if (config.controlOption && product.features.hasControlOption) {
+      const option = CONTROL_OPTIONS.find((o) => o.id === config.controlOption);
       cost += option?.price || 0;
     }
-    if (config.rollerStyle && product.features.hasRollerStyle) {
-      const option = ROLLER_STYLE_OPTIONS.find((o) => o.id === config.rollerStyle);
+
+    if (config.stacking && product.features.hasStacking) {
+      const option = STACKING_OPTIONS.find((o) => o.id === config.stacking);
       cost += option?.price || 0;
     }
-    if (config.fabricType && product.features.hasFabricType) {
-      const option = FABRIC_TYPE_OPTIONS.find((o) => o.id === config.fabricType);
+
+    if (config.controlSide && product.features.hasControlSide) {
+      const option = CONTROL_SIDE_OPTIONS.find((o) => o.id === config.controlSide);
       cost += option?.price || 0;
     }
-    if (config.bottomBar && product.features.hasBottomBar) {
-      const option = BOTTOM_BAR_OPTIONS.find((o) => o.id === config.bottomBar);
+
+    if (config.bottomChain && product.features.hasBottomChain) {
+      const option = BOTTOM_CHAIN_OPTIONS.find((o) => o.id === config.bottomChain);
       cost += option?.price || 0;
     }
-    if (config.lift && product.features.hasLift) {
-      const option = LIFT_OPTIONS.find((o) => o.id === config.lift);
+
+    if (config.bracketType && product.features.hasBracketType) {
+      const option = BRACKET_TYPE_OPTIONS.find((o) => o.id === config.bracketType);
       cost += option?.price || 0;
     }
 
@@ -187,50 +180,6 @@ const CustomizationModal = ({
                   </div>
                 )}
 
-                {/* Room Selector */}
-                {/*{product.features.hasRoom && (
-                  <div className="pt-6">
-                    <RoomSelector
-                      rooms={ROOM_OPTIONS}
-                      selectedRoom={config.room}
-                      onRoomChange={(roomId) => setConfig({ ...config, room: roomId })}
-                    />
-                  </div>
-                )} */}
-
-                {/* Mount Selector */}
-                {product.features.hasMount && (
-                  <div className="pt-6">
-                    <MountSelector
-                      options={MOUNT_OPTIONS}
-                      selectedMount={config.mount}
-                      onMountChange={(mountId) => setConfig({ ...config, mount: mountId })}
-                    />
-                  </div>
-                )}
-
-                {/* Fabric Type Selector */}
-                {product.features.hasFabricType && (
-                  <div className="pt-6">
-                    <FabricTypeSelector
-                      options={FABRIC_TYPE_OPTIONS}
-                      selectedType={config.fabricType}
-                      onTypeChange={(typeId) => setConfig({ ...config, fabricType: typeId })}
-                    />
-                  </div>
-                )}
-
-                {/* Colour Selector */}
-                {product.features.hasColour && (
-                  <div className="pt-6">
-                    <ColourSelector
-                      options={COLOUR_OPTIONS}
-                      selectedColour={config.colour}
-                      onColourChange={(colourId) => setConfig({ ...config, colour: colourId })}
-                    />
-                  </div>
-                )}
-
                 {/* Headrail Selector */}
                 {product.features.hasHeadrail && (
                   <div className="pt-6">
@@ -242,115 +191,80 @@ const CustomizationModal = ({
                   </div>
                 )}
 
-                {/* Open Style Selector */}
-                {product.features.hasOpenStyle && (
-                  <>
-                    <div className="pt-6">
-                      <OpenStyleSelector
-                        options={OPEN_STYLE_OPTIONS}
-                        selectedStyle={config.openStyle}
-                        onStyleChange={(styleId) => setConfig({ ...config, openStyle: styleId })}
-                      />
-                    </div>
-                    {/* Wand Position */}
-                    {product.features.hasWandPosition &&
-                      config.openStyle === 'wand' && (
-                        <div className="pt-6">
-                          <WandPositionSelector
-                            options={WAND_POSITION_OPTIONS}
-                            selectedPosition={config.wandPosition}
-                            onPositionChange={(positionId) =>
-                              setConfig({ ...config, wandPosition: positionId })}
-                          />
-                        </div>
-                      )}
-                  </>
+                {/* Headrail Colour Selector */}
+                {product.features.hasHeadrailColour && (
+                  <div className="pt-6 relative z-50">
+                    <HeadrailColourSelector
+                      options={HEADRAIL_COLOUR_OPTIONS}
+                      selectedColour={config.headrailColour}
+                      onColourChange={(colourId) => setConfig({ ...config, headrailColour: colourId })}
+                    />
+                  </div>
                 )}
 
-                {/* Control Selector */}
-                {product.features.hasControl && (
+                {/* Installation Method Selector */}
+                {product.features.hasInstallationMethod && (
                   <div className="pt-6">
-                    <ControlSelector
+                    <InstallationMethodSelector
+                      options={INSTALLATION_METHOD_OPTIONS}
+                      selectedMethod={config.installationMethod}
+                      onMethodChange={(methodId) => setConfig({ ...config, installationMethod: methodId })}
+                    />
+                  </div>
+                )}
+
+                {/* Control Option Selector */}
+                {product.features.hasControlOption && (
+                  <div className="pt-6">
+                    <ControlOptionSelector
                       options={CONTROL_OPTIONS}
-                      selectedControl={config.control}
-                      onControlChange={(controlId) => setConfig({ ...config, control: controlId })}
-                      positionOptions={CONTROL_POSITION_OPTIONS}
-                      selectedPosition={config.controlPosition}
-                      onPositionChange={(positionId) =>
-                        setConfig({ ...config, controlPosition: positionId })}
+                      selectedOption={config.controlOption}
+                      onOptionChange={(optionId) => setConfig({ ...config, controlOption: optionId })}
                     />
                   </div>
                 )}
 
-                {/* Lift Selector */}
-                {product.features.hasLift && (
+                {/* Stacking Selector */}
+                {product.features.hasStacking && (
                   <div className="pt-6">
-                    <LiftSelector
-                      options={LIFT_OPTIONS}
-                      selectedLift={config.lift}
-                      onLiftChange={(liftId) => setConfig({ ...config, lift: liftId })}
-                      positionOptions={LIFT_POSITION_OPTIONS}
-                      selectedPosition={config.liftPosition}
-                      onPositionChange={(positionId) =>
-                        setConfig({ ...config, liftPosition: positionId })}
+                    <StackingSelector
+                      options={STACKING_OPTIONS}
+                      selectedStacking={config.stacking}
+                      onStackingChange={(stackingId) => setConfig({ ...config, stacking: stackingId })}
                     />
                   </div>
                 )}
 
-                {/* Roller Style Selector */}
-                {product.features.hasRollerStyle && (
+                {/* Control Side Selector */}
+                {product.features.hasControlSide && (
                   <div className="pt-6">
-                    <RollerStyleSelector
-                      options={ROLLER_STYLE_OPTIONS}
-                      selectedStyle={config.rollerStyle}
-                      onStyleChange={(styleId) => setConfig({ ...config, rollerStyle: styleId })}
-                    />
-                  </div>
-                )}
-                {/* Valance Selector */}
-                {product.features.hasValance && (
-                  <div className="pt-6">
-                    <ValanceSelector
-                      options={VALANCE_OPTIONS}
-                      selectedValance={config.valance}
-                      onValanceChange={(valanceId) => setConfig({ ...config, valance: valanceId })}
+                    <ControlSideSelector
+                      options={CONTROL_SIDE_OPTIONS}
+                      selectedSide={config.controlSide}
+                      onSideChange={(sideId) => setConfig({ ...config, controlSide: sideId })}
                     />
                   </div>
                 )}
 
-                {/* Bottom Bar Selector */}
-                {product.features.hasBottomBar && (
-                  <div className="pt-6">
-                    <BottomBarSelector
-                      options={BOTTOM_BAR_OPTIONS}
-                      selectedBar={config.bottomBar}
-                      onBarChange={(barId) => setConfig({ ...config, bottomBar: barId })}
+                {/* Bottom Chain Selector */}
+                {product.features.hasBottomChain && (
+                  <div className="pt-6 relative z-30">
+                    <BottomChainSelector
+                      options={BOTTOM_CHAIN_OPTIONS}
+                      selectedChain={config.bottomChain}
+                      onChainChange={(chainId) => setConfig({ ...config, bottomChain: chainId })}
                     />
                   </div>
                 )}
 
-                {/* Dropdown Selectors - Side by Side */}
-                {(product.features.hasBottomChain || product.features.hasBracketType) && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-6">
-                    {product.features.hasBottomChain && (
-                      <DropdownSelector
-                        label="Select Bottom Weight Chain"
-                        options={BOTTOM_CHAIN_OPTIONS}
-                        selectedValue={config.bottomChain}
-                        onValueChange={(value) => setConfig({ ...config, bottomChain: value })}
-                        placeholder="Select Bottom Weight Chain"
-                      />
-                    )}
-
-                    {product.features.hasBracketType && (
-                      <DropdownSelector
-                        label="Bracket Type"
-                        options={BRACKET_OPTIONS}
-                        selectedValue={config.bracketType}
-                        onValueChange={(value) => setConfig({ ...config, bracketType: value })}
-                        placeholder="Select Bracket Type"
-                      />
-                    )}
+                {/* Bracket Type Selector */}
+                {product.features.hasBracketType && (
+                  <div className="pt-6 relative z-20">
+                    <BracketTypeSelector
+                      options={BRACKET_TYPE_OPTIONS}
+                      selectedBracket={config.bracketType}
+                      onBracketChange={(bracketId) => setConfig({ ...config, bracketType: bracketId })}
+                    />
                   </div>
                 )}
               </div>
