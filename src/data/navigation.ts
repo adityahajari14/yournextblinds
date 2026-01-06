@@ -297,3 +297,67 @@ export const COLLECTION_DISPLAY_NAMES: Record<string, string> = {
   'dining-room-blinds': 'Dining Room Blinds',
   'childrens-blinds': "Children's Blinds",
 };
+
+// ===========================
+// NEW NAVIGATION DATA
+// ===========================
+
+export interface NewNavigationLink {
+  label: string;
+}
+
+export interface NewNavigationItem {
+  label: string;
+  submenu?: NewNavigationLink[];
+}
+
+export const newNavigationData: NewNavigationItem[] = [
+  {
+    label: 'Blinds',
+    submenu: [
+      { label: 'Light filtering Vertical blinds' },
+      { label: 'Blackout vertical blinds' },
+      { label: 'All blinds and shades' },
+    ]
+  },
+  {
+    label: 'Shades',
+    submenu: [
+      { label: 'Light filtering roller Shades' },
+      { label: 'Blackout roller Shades' },
+      { label: 'Waterproof Blackout roller Shades' },
+      { label: 'Dual zebra Shades' },
+      { label: 'All blinds and shades' },
+    ]
+  },
+  {
+    label: 'Motorization',
+    submenu: [
+      { label: 'Motorised roller shades' },
+      { label: 'Motorised Dual / zebra shades' },
+      { label: 'Motorised EclipseCore' },
+    ]
+  },
+  {
+    label: 'Blackout',
+    submenu: [
+      { label: 'Roller Shades' },
+      { label: 'Dual/ zebra shades' },
+      { label: 'Vertical blinds' },
+      { label: 'EclipseCore shades' },
+    ]
+  },
+  {
+    label: 'Shop by',
+    submenu: [
+      { label: 'Shop by Feature' },
+      { label: 'Shop by room' },
+    ]
+  },
+  {
+    label: 'About us',
+  },
+  {
+    label: 'Measure/fit guides',
+  },
+];
